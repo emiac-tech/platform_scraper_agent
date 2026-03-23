@@ -57,4 +57,4 @@ FILTERS = {
 }
 
 # ─── Database Settings ──────────────────────────────────────────────────────────
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR, 'marketplaces.db')}")
+DATABASE_URL = os.getenv("DATABASE_URL")

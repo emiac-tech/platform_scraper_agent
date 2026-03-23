@@ -55,27 +55,7 @@ from config import (
 )
 
 # ─── DB Declaration ───────────────────────────────────────────────────────────────
-Base = declarative_base()
-
-class PublisherListing(Base):
-    __tablename__ = 'publishers_v2'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    clean_domain = Column(String(255), unique=True, index=True)
-    website_url = Column(String(255))
-    host_sites = Column(JSON, default=list)
-    item_ids = Column(JSON, default=list)
-    categories = Column(JSON, default=list)
-    prices_raw = Column(JSON, default=list)
-    prices_numerical = Column(JSON, default=list)
-    
-    moz_da = Column(Integer)
-    moz_pa = Column(Integer)
-    ahrefs_dr = Column(Integer)
-    traffic = Column(Integer)
-    
-    language = Column(String(100))
-    country = Column(String(100))
-    scraped_at = Column(DateTime, default=datetime.utcnow)
+from models import Base, PublisherListing
 
 # ─── Logging Setup ───────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -183,7 +163,7 @@ class ICopifyScraper:
                 if item_data.get('traffic') and (not existing.traffic or item_data['traffic'] > existing.traffic):
                     existing.traffic = item_data['traffic']
 
-                existing.scraped_at = datetime.utcnow()
+                existing.updated_at = datetime.utcnow()
             else:
                 db_item = {
                     'clean_domain': domain,
@@ -198,7 +178,8 @@ class ICopifyScraper:
                     'traffic': item_data.get('traffic'),
                     'language': item_data.get('language'),
                     'country': item_data.get('country'),
-                    'scraped_at': datetime.utcnow()
+                    'created_at': datetime.utcnow(),
+                    'updated_at': datetime.utcnow()
                 }
                 new_listing = PublisherListing(**db_item)
                 db_session.add(new_listing)

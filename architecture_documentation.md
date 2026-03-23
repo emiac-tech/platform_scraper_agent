@@ -1,7 +1,7 @@
 # Guest Posting Marketplace Scraper - Architecture & Documentation
 
 ## 1. Project Overview
-The Guest Posting Marketplace Scraper is an automated, high-level data pipeline designed to continuously scan, deduplicate, and centralize publisher catalogs from multiple internet marketplaces (currently actively supporting `Posticy.com` and `iCopify.co`). 
+The Guest Posting Marketplace Scraper is an automated, high-level data pipeline designed to continuously scan, deduplicate, and centralize publisher catalogs from multiple internet marketplaces (currently actively supporting `Posticy.com`, `iCopify.co`, `Publisuites.com`, `Links.me`, and `PressScape.com`). 
 
 Because listings often span across several platforms with varying price points, the system executes parallel crawls, normalizes the identity of each publisher, and intelligently updates a unified database structure to allow straightforward queries and analytics.
 
@@ -18,7 +18,7 @@ This `clean_domain` serves as the global `UNIQUE` primary key in the centralized
 
 ### 2.2 Array Mapping Strategy
 To answer the complex query of "How much does Example.com cost on Platform A versus Platform B?", the system uses corresponding JSON array fields natively mapped within SQLAlchemy:
-- `host_sites`: Array of platforms listing the site (e.g., `["posticy.com", "icopify.co"]`)
+- `host_sites`: Array of platforms listing the site (e.g., `["posticy.com", "icopify.co", "publisuites.com"]`)
 - `prices_numerical`: Array of floating-point prices matching the host array indices (e.g., `[150.0, 160.0]`)
 
 Because these indices strictly map 1-to-1, `prices_numerical[0]` guarantees the price on `host_sites[0]`.

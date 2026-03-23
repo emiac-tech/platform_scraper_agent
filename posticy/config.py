@@ -45,7 +45,7 @@ COOKIE_FILE = os.path.join(COOKIES_DIR, "posticy_session.json")
 OUTPUT_PREFIX = "posticy_publishers"
 
 # Database Settings (PostgreSQL or SQLite)
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR, 'marketplaces.db')}")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # ─── Filters ────────────────────────────────────────────────────────────────────
 # The API accepts many filters. Set these to prioritize latest data or specific metrics.

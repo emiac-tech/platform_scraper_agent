@@ -12,3 +12,18 @@ scrapers:
     path: "./posticy"
     command: ["python3", "scraper.py"]
     active: true
+
+  - name: "Publisuites"
+    path: "./publisuites"
+    command: ["python3", "scraper.py"]
+    active: true
+
+  - name: "Links.me"
+    path: "./linksme"
+    command: ["python3", "scraper.py"]
+    active: true
+
+  - name: "PressScape"
+    path: "./pressscape"
+    command: ["python3", "scraper.py"]
+    active: true
