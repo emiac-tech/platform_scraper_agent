@@ -1,0 +1,30 @@
+# Environment Variables & Virtual Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Scraper State & Artifacts
+data/
+cookies/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store

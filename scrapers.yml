@@ -1,0 +1,14 @@
+# Define your marketplace scrapers here.
+# To add a new one, just append to this list and create its folder/script matching the path.
+# The orchestrator will spawn them independently!
+
+scrapers:
+  - name: "iCopify"
+    path: "./icopify"
+    command: ["python3", "scraper.py"]
+    active: true
+
+  - name: "Posticy"
+    path: "./posticy"
+    command: ["python3", "scraper.py"]
+    active: true

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # The Background Scraper Orchestrator
+  orchestrator:
+    build: .
+    container_name: marketplace_orchestrator
+    command: python3 orchestrator.py --daemon
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./.env:/app/.env
+      - ./scrapers.yml:/app/scrapers.yml
+      # Mount entire local directory for hot swapping scrapers in dev
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # The CSV Download Webhook
+  webhook:
+    build: .
+    container_name: marketplace_webhook
+    command: uvicorn webhook:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./.env:/app/.env
+      # Mount entire local directory for hot reloading via uvicorn if desired
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # Optional Admin/Dev UI (e.g., PostgreSQL Admin if switching to Postgres)
+  # (Can be added here easily)
